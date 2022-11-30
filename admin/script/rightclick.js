@@ -22,7 +22,12 @@ window.addEventListener('click', function() {
 });
 
 //отправка get-запроса
-function buttonDelete(){
+function buttonDelete(){ //удалить
   elem = document.querySelector('#del');
   elem.href = "?ctlg=" + content + "&status=del";
+}
+
+function buttonOpen(){ //открыть
+  elem = document.querySelector('#open');
+  elem.href = "?ctlg=" + content;
 }

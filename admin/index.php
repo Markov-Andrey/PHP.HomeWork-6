@@ -13,10 +13,12 @@ require_once('./explorer.php');
 
     <div class="context-menu-open">
       <ul>
+        <li onclick="buttonOpen()">
+          <a id="open" href="#">Открыть
+        </li>
         <li onclick="buttonDelete()">
           <a id="del" href="#">Удалить
         </li>
-        <li>Ссылка 2</li>
         <li>Ссылка 3</li>
       </ul>
     </div>

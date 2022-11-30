@@ -41,3 +41,13 @@
 .context-menu-open ul li:hover {
   background-color: #BFE2FF;
 }
+
+/*Файл-ридер*/
+.reader{
+  margin: 50px auto;
+  padding: 15px;
+  width: 80%;
+  min-height: 100px;
+  background: #feffc7;
+  border: 1px solid #ffbe44;
+}

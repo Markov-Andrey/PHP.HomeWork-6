@@ -15,20 +15,21 @@ echo "<a href='?ctlg=$home'>Домой</a><br>";
 $ctlg = $_GET["ctlg"];
 $status = $_GET["status"];
 
-//перенаправление по запросу (директория)
-if((is_dir($ctlg))&&(!$status)){
+if((is_dir($ctlg))&&(!$status)){//перенаправление по запросу (директория)
   chdir($ctlg);
-//удаление пустого каталога
-} elseif (($ctlg)&&($status = "del")){
+} elseif ((is_file($ctlg))&&(!$status)){//перенаправление по запросу (файл)
+  $content = $ctlg;
+  chdir (dirname($ctlg));
+} elseif (($ctlg)&&($status = "del")){//удаление пустого каталога
   removeDir($ctlg);
 }
 
 //поиск всех дисков на ПК и создание ссылок
-$drive = 'a';
+$drive = 'A';
 for($n=0; $n<25; $n++){
   ++$drive;
   if(@scandir($drive.":/")){
-    echo "<a href='?ctlg=$drive:\'>".$drive.DIRECTORY_SEPARATOR."</a><br>";
+    echo "<a href='?ctlg=$drive:\'>"."Диск ".$drive.DIRECTORY_SEPARATOR."</a><br>";
   }
 }
 
@@ -56,5 +57,19 @@ foreach($fileInCat as $f){
   }
 }
 echo "</div>";
+
+
+//вызов контента файла
+if($content){
+  $title = basename($content);
+  echo "<div class='reader'>";
+  echo "<h1 style='text-align: center;'>".$title."</h1>";
+  $text = file_get_contents($content);
+  echo "<p>$text</p>";
+  echo "<hr><b>";
+  echo strlen($text)." символов; ";
+  echo str_word_count($text, 0, "АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя")." слов"; //костыль для подсчета кириллических слов
+  echo "</b></div>";
+}
 
 ?>
