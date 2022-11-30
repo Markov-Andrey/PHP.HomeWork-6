@@ -10,9 +10,16 @@ if ($url == '/admin/explorer.php') {
 $home = __DIR__;
 echo "<a href='?ctlg=$home'>Домой</a><br>";
 
+//система отлова GET-запросов
 $ctlg = $_GET["ctlg"];
-if(is_dir($ctlg)){
+$status = $_GET["status"];
+
+//перенаправление по запросу (директория)
+if((is_dir($ctlg))&&(!$status)){
   chdir($ctlg);
+//удаление пустого каталога
+} elseif (($ctlg)&&($status = "del")){
+  delFile($status, $ctlg);
 }
 
 //поиск всех дисков на ПК и создание ссылок
@@ -42,8 +49,8 @@ echo "<p>Файловая система</p>";
 foreach($fileInCat as $f){
   if($f !== "."){
     $pathF = getcwd()."\\".$f;
-    echo "<p>
-      <a href='?ctlg=$pathF'>$f</a></p>
+    echo "<div>
+      <a href='?ctlg=$pathF' class='context-menu'>$f</a></div>
     ";
   }
 }
