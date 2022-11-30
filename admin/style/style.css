@@ -1,7 +1,7 @@
 .context-menu {
   background: #BFE2FF;
   width: 180px;
-  height: 25px;
+  min-height: 25px;
   display: block;
   text-align: center;
   align-items: center;

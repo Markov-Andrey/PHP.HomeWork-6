@@ -16,10 +16,12 @@ for (let i = 0; i < contextMenu.length; i++){
     });
 }
 
+//убрать всплавыющий список
 window.addEventListener('click', function() {
     contextMenuOpen.style.display = 'none';
 });
 
+//отправка get-запроса
 function buttonDelete(){
   elem = document.querySelector('#del');
   elem.href = "?ctlg=" + content + "&status=del";

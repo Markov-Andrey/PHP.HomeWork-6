@@ -1,4 +1,5 @@
 <?php
+$ds = DIRECTORY_SEPARATOR;
 
 //редирект (по ТЗ)
 $url = $_SERVER['REQUEST_URI'];
@@ -19,7 +20,7 @@ if((is_dir($ctlg))&&(!$status)){
   chdir($ctlg);
 //удаление пустого каталога
 } elseif (($ctlg)&&($status = "del")){
-  delFile($status, $ctlg);
+  removeDir($ctlg);
 }
 
 //поиск всех дисков на ПК и создание ссылок
@@ -27,20 +28,20 @@ $drive = 'a';
 for($n=0; $n<25; $n++){
   ++$drive;
   if(@scandir($drive.":/")){
-    echo "<a href='?ctlg=$drive:\'>".$drive.":\\</a><br>";
+    echo "<a href='?ctlg=$drive:\'>".$drive.DIRECTORY_SEPARATOR."</a><br>";
   }
 }
 
 //текущий адрес проводника (разбор + сбор файла)
 //с возможностью проходить в любую точку данного адреса
-$path = explode("\\", getcwd());
+$path = explode(DIRECTORY_SEPARATOR, getcwd());
 echo "Текущий путь: ";
 for($i = 0; $i < count($path); $i++){
   $str = "";
     for($j = 0; $j <= $i; $j++){
-        $str .= $path[$j]."\\";
+        $str .= $path[$j].DIRECTORY_SEPARATOR;
     }
-    echo "<a href='?ctlg=$str'>".$path[$i]."\\</a>";
+    echo "<a href='?ctlg=$str'>".$path[$i].DIRECTORY_SEPARATOR."</a>";
 }
 
 //обращение к папке в каталоге
@@ -48,7 +49,7 @@ $fileInCat = (scandir(getcwd()));
 echo "<p>Файловая система</p>";
 foreach($fileInCat as $f){
   if($f !== "."){
-    $pathF = getcwd()."\\".$f;
+    $pathF = getcwd().DIRECTORY_SEPARATOR.$f;
     echo "<div>
       <a href='?ctlg=$pathF' class='context-menu'>$f</a></div>
     ";
